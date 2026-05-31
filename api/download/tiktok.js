@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({
       status: true,
-      creator: "kyzz",
+      creator: "reycloud",
       result
     });
 
