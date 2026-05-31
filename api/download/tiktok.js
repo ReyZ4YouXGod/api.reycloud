@@ -1,13 +1,15 @@
-// api/download/tiktok.js
-
 const { tiktokDl } = require("../../../utils/tiktokDl");
 
 module.exports = async (req, res) => {
   try {
+    // CORS FIX (ini penting)
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET");
+
     if (req.method !== "GET") {
       return res.status(405).json({
         status: false,
-        message: "Method not allowed",
+        message: "Method not allowed"
       });
     }
 
@@ -16,28 +18,29 @@ module.exports = async (req, res) => {
     if (!url) {
       return res.status(400).json({
         status: false,
-        message: "url wajib diisi",
+        message: "url wajib"
       });
     }
 
     if (!url.includes("tiktok.com")) {
       return res.status(400).json({
         status: false,
-        message: "url tidak valid",
+        message: "url tidak valid"
       });
     }
 
     const result = await tiktokDl(url);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: true,
-      creator: "reycloud",
-      result,
+      creator: "kyzz",
+      result
     });
+
   } catch (e) {
-    res.status(500).json({
+    return res.status(500).json({
       status: false,
-      message: e.message,
+      message: e.message
     });
   }
 };
